@@ -1,21 +1,18 @@
+package partner;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.*;
 //==========================================================================================
-//Where
-//I
-//Make
-//Difference
 public class graph {
 	private ArrayList vertexList;//存储点的链表
     public int[][] edges;//邻接矩阵，用来存储边权
-    private int numOfEdges;//边的数目
-    private int numOfVexs;//点的数目
+    private  int numOfEdges;//边的数目
+    private  int numOfVexs;//点的数目
     public String vexs[];
     private static final int INF = 2000;   // 最大值
-    public graph(int n,String[] vex) {
+    public Graph(int n,String[] vex) {
         //初始化矩阵，一维数组，和边的数目
         edges=new int[n][n];
         for (int i = 0; i < n; i++) {
@@ -56,7 +53,7 @@ public class graph {
     	if(edges[v1][v2]==INF)
     		edges[v1][v2]=weight;
     	else
-    		edges[v1][v2]++;
+    	{	edges[v1][v2]++;}
         numOfEdges++;
     }
     //删除结点
@@ -98,7 +95,7 @@ public class graph {
     public int getPosition(String word) {
     	for(int i = 0;i<vexs.length;i++)
     		if(vexs[i].equals(word))
-    			return i;
+    		{	return i;}
     	return -1;
     }
     //获得邻接矩阵
@@ -153,9 +150,9 @@ public class graph {
     		    }  
             }  
     		
-            if (sum == -1)   //如果个数为0
+      if (sum == -1)   //如果个数为0
                 return("situation4");
-            else{
+      else{
                 for(int x = 0;x<bridge.length;x++){
                 	if(bridge[x].equals("")==false){
                 		ans = ans + bridge[x];
@@ -168,9 +165,10 @@ public class graph {
     }
 //根据bridge word生成新文本
     public String generateNewText(String inputText){
-    	inputText = inputText.replaceAll("[\\p{Punct}\\p{Space}]+", " ");
-    	inputText = inputText.toLowerCase();
-    	String[] textArray = inputText.split(" ");//输入文本分割	
+    	String inputText1 =inputText;
+    	inputText1 = inputText.replaceAll("[\\p{Punct}\\p{Space}]+", " ");
+    	inputText1 = inputText.toLowerCase();
+    	String[] textArray = inputText1.split(" ");//输入文本分割	
     	String newText = "";
     	for(int i = 0;i<textArray.length-1;i++){
     		if(queryBridgeWords(textArray[i],textArray[i+1]).equals("situation1")){
@@ -302,7 +300,8 @@ public class graph {
     	return randomText;
     }
  //主程序==========================================================================================
-	public  static void main(String[] args) throws Exception{
+	public  static void main(String[] args) 
+			throws Exception{
         Scanner sc = new Scanner(System.in);
         System.out.println("输入文件路径：");   //     D:\\workspace\\test.txt
         String txtpath = sc.nextLine();
@@ -310,7 +309,7 @@ public class graph {
 		StringBuilder sb = new StringBuilder();
 		String s ="";
 		BufferedReader br = new BufferedReader(new FileReader(file));
-		while( (s = br.readLine()) != null) {
+		while((s = br.readLine()) != null) {
 			sb.append(s + "\n");
 		}
 		br.close();
@@ -346,7 +345,7 @@ public class graph {
 			}
 		}	
 		//建立图
-        graph pG = new graph(cf,vex);
+        Graph pG = new Graph(cf,vex);
 		for(String x:vex) {
             pG.insertVertex(x);//插入结点
         }
@@ -367,8 +366,8 @@ public class graph {
         pG.showDirectedGraph(cf); 
         
 		int[][] edgeArray = pG.getEdges();
-		File DotFile = new File("d:\\Graph1.dot");
-        FileWriter NewFile = new FileWriter(DotFile);
+		File dotFile = new File("d:\\Graph1.dot");
+        FileWriter NewFile = new FileWriter(dotFile);
         NewFile.write("digraph graph1{\r\n\tnode [shape=\"record\"];\r\n\t");
         for(int i=0;i<strArray.length;i++)
             NewFile.write(strArray[i]+";\r\n\t");
@@ -388,7 +387,8 @@ public class graph {
         System.out.println("输入word1：");
         String word1 = sc.nextLine();
         System.out.println("输入word2：");
-        String word2 = sc.nextLine();
+        String word2 ;
+        word2 = sc.nextLine();
         if(pG.queryBridgeWords(word1, word2).equals("situation1"))
 		       System.out.printf("No “%s” and “%s” in the graph!",word1,word2);
 		else if(pG.queryBridgeWords(word1, word2).equals("situation2"))
