@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.*;
 //==========================================================================================
+
+// ad a a da a 
 public class graph {
 	private ArrayList vertexList;//存储点的链表
     public int[][] edges;//邻接矩阵，用来存储边权
